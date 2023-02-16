@@ -1,14 +1,15 @@
 import React from 'react';
-import {StyleSheet, FlatList, View, Image, Text} from 'react-native';
 import {useRoute} from '@react-navigation/native';
-//componets
-import Cesta from '../Cesta';
-import Topo from '../../componentes/Topo';
 import useTextos from '../../hooks/useTextos';
-import topo from '../../assets/topo.png';
+
+import {FlatList, Text, View, Image, StyleSheet} from 'react-native';
+
+import Cesta from './componentes/Cesta';
+import Topo from '../../componentes/Topo';
+
+import topo from '../../assets/produtores/topo.png';
 
 export default function Produtor() {
-  //pegando parametros
   const route = useRoute();
   const {tituloProdutor, tituloCestas} = useTextos();
   const {nome, imagem, cestas} = route.params;
@@ -23,6 +24,7 @@ export default function Produtor() {
             <Image source={imagem} style={estilos.produtorImage} />
             <Text style={estilos.produtor}>{nome}</Text>
           </View>
+
           <Text style={estilos.cestas}>{tituloCestas}</Text>
         </View>
       </>
@@ -33,9 +35,8 @@ export default function Produtor() {
     <FlatList
       ListHeaderComponent={TopoLista}
       data={cestas}
-      renderItem={({item}) => (
-        <Cesta {...item} produtor={{nome, imagem}} style={estilos.lista} />
-      )}
+      renderItem={({item}) => <Cesta {...item} produtor={{nome, imagem}} />}
+      style={estilos.lista}
     />
   );
 }
